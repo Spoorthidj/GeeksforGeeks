@@ -2,18 +2,15 @@ class Solution {
     public int findMaxSum(int arr[]) {
         // code here
         int n = arr.length;
-        int[] dp = new int[n];
-        Arrays.fill(dp, -1);
-        return robbery(n-1, arr, dp);
-    }
-    static int robbery(int index, int[] arr, int[] dp) {
-        if(index == 0)
+        if(n == 1)
             return arr[0];
-        if(index == 1)
-            return Math.max(arr[0], arr[1]);
-        if(dp[index] != -1)
-            return dp[index];
-        return dp[index] = Math.max(arr[index] + robbery(index-2, arr, dp),
-            robbery(index-1, arr, dp));
+        int[] dp = new int[n];
+        dp[0] = arr[0];
+        dp[1] = Math.max(arr[0], arr[1]);
+        for(int i=2; i<n; i++)
+        {
+            dp[i] = Math.max(arr[i] + dp[i-2], dp[i-1]);
+        }
+        return dp[n-1];
     }
 }
